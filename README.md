@@ -86,20 +86,25 @@ $ bin/rails server
 
 ## 第8章 タスクC:カタログの表示
 
-- rootのURLを設定(p.90)
-  - 修正前：root to: 'store#index', as 'store'
-  - 修正後：root 'store#index'
-
-
 - index.htmlの削除(p.91)
   - 修正前：rm public/index.html
   - 修正後：何もしない
 
+- ファイルの拡張子(p.92)
+  - 修正前：store.css.scss
+  - 修正後：store.scss
+
+- ファイルの拡張子(p.95)
+  - 修正前：layout.css.scss
+  - 修正後：layout.scss
 
 - 機能テストのフォルダ名(p.98)
   - 修正前：test/__functional__/store_controller_test.rb
   - 修正後：test/__controllers__/store_controller_test.rb
 
+- test "should get index"の修正(p.98)
+  - 修正前：get :index
+  - 修正後：get store_index_url
 
 - 機能テストの実行(p.100)
   - 修正前：rake test:__functionals__
