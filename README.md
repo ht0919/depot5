@@ -42,21 +42,34 @@ $ bin/rails server
   - 修正前：with: %r{\.(gif|jpg|png)__$__}i,
   - 修正後：with: %r{\.(gif|jpg|png)__\z__}i,
 
-
 - 機能テストのフォルダ名(p.78)
   - 修正前：test/__functional__/products_controller_test.rb
   - 修正後：test/__controllers__/products_controller_test.rb
 
+- test "should create product"の修正(p.79)
+  - 修正前：post :create, product: @update
+  - 修正後：post products_url, params: { product: @update }
+
+- test "should update product"の修正(p.79)
+  - 修正前：patch product_url(@product), params: { product: { description: @product.description, image_url: @product.image_url, price: @product.price, title: @product.title } }
+  - 修正後：patch product_url(@product), params: { product: @update }
+
+- test "should get index"のエラー対策(p.79)
+  * test/fixtures/products.ymlの修正(2箇所とも実在する画像ファイルに置き換える)
+  - 修正前：image_url: MyString
+  - 修正後：image_url: ruby.jpg
 
 - ユニットテストのフォルダ名(p.80)
   - 修正前：test/__unit__/product_test.rb
   - 修正後：test/__model__/product_test.rb
 
-
 - ユニットテストの実行(p.81)
   - 修正前：rake test:__units__
   - 修正後：rake test:__models__
 
+- フィクスチャデータの追加(p.84)
+  - 修正前：image_url: ruby.png
+  - 修正後：image_url: ruby.jpg
 
 - I18nによるテスト(p.86)
   - 準備：config/locales/en.ymlを以下のように修正
