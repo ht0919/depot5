@@ -152,6 +152,11 @@ $ bin/rails server
 
 ## 第10章 タスクE:もっとスマートなカートの作成
 
+- 無効なカートidを指定した時のエラー対策(p.117)
+  - 修正前：before_action :set_cart, only: [:show, :edit, :update, :destroy]
+  - 修正後：before_action :set_cart, only: [:edit, :update, :destroy]
+
+
 - エラー時のリダイレクト指定(p.117)
   - 修正前：redirect_to __store_url__, notice: '無効なカートです'
   - 修正後：redirect_to __root_url__, notice: '無効なカートです'
