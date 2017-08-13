@@ -1,6 +1,6 @@
 # Depot for Rails 5.1.3
 
-- 書籍『RailsによるアジャイルWebアプリケーション開発(第４版)』のサンプル(depot)をRails5に移植した時の変更記録です。
+- 書籍『RailsによるアジャイルWebアプリケーション開発(第４版)』のサンプル(depot)をRails5で作成した時の変更記録です。
 
 ## 動作環境
 
@@ -157,24 +157,9 @@ $ bin/rails server
   - 修正後：before_action :set_cart, only: [:edit, :update, :destroy]
 
 
-- エラー時のリダイレクト指定(p.117)
-  - 修正前：redirect_to __store_url__, notice: '無効なカートです'
-  - 修正後：redirect_to __root_url__, notice: '無効なカートです'
-
-
 - confirmの表記(p.119)
   - 修正前：confirm: '本当によいですか？' %>
   - 修正後：__data: {__ confirm: '本当によいですか？' __}__ %>
-
-
-- カートを空にした時のリダイレクト指定(p.119)
-  - 修正前：format.html { redirect_to __store_url__,
-  - 修正後：format.html { redirect_to __root_url__,
-
-
-- 機能テストのカートの削除でのリダイレクト指定(p.119)
-  - 修正前：assert_redirected_to __store_url__,
-  - 修正後：assert_redirected_to __root_url__,
 
 
 - 機能テストのエラー回避のためeditメソッドを修正
@@ -210,10 +195,15 @@ $ bin/rails server
 
 ## 第11章 タスクF:Ajaxの追加
 
-- ページ遷移の変更でリダイレクト指定(p.131)
-  * app/controllers/line_items_controller.rb
-  - 修正前：format.html { redirect_to __store_url__ }
-  - 修正後：format.html { redirect_to __root_path__ }
+- confirmの表記(p.128)
+  - 修正前：confirm: '本当によいですか？' %>
+  - 修正後：__data: {__ confirm: '本当によいですか？' __}__ %>
+
+
+- トラブルシューティング(p.134)
+  - Genfileの末尾に「gem 'jquery-rails'」を追加
+  - bin/bundle install
+  - サーバーの再起動(Ctrl+C -> rails s)
 
 
 - 変更内容の強調表示(p.135)
@@ -222,14 +212,24 @@ $ bin/rails server
   - サーバーの再起動(Ctrl+C -> rails s)
 
 
+- ファイルの拡張子(p.140)
+  - 修正前：store.js.coffee
+  - 修正後：store.coffee
+
+
 - 機能テストのフォルダ名(p.143)
   - 修正前：test/__functional__/line_items_controller_test.rb
   - 修正後：test/__controllers__/line_items_controller_test.rb
 
 
-- 機能テストのリダイレクト指定(p.119)
-  - 修正前：assert_redirected_to __store_path__,
-  - 修正後：assert_redirected_to __root_path__,
+- test "should create line_item via ajax"の修正(p.143)
+  - 修正前：xhr :post, :create, params: {product_id: products(:ruby).id}
+  - 修正後：post line_items_url, params: { product_id: products(:ruby).id }, xhr: true
+
+
+- test "markup needed for store.coffee is in place"の修正(p.143)
+  - 修正前：get :index
+  - 修正後：get store_index_url
 
 
 ## 第12章 タスクG:チェックアウト！
@@ -306,17 +306,21 @@ $ bin/rails server
   - 修正前：test/__functional__/order_notifier_test.rb
   - 修正後：test/__mailers__/order_notifier_test.rb
 
+
 - メールの機能テスト(received)がエラーになるのでコメント(p.172)
   - 修正前：assert_match /1 x Programming Ruby 1.9/, mail.body.encoded
   - 修正後：__#__ assert_match /1 x Programming Ruby 1.9/, mail.body.encoded
+
 
 - メールの機能テスト(shipped)がエラーになるのでコメント(p.172)
   - 修正前：assert_match /<td>1&times;<\/td>\s*<td>Programming Ruby 1.9<\/td>/, mail.body.encoded
   - 修正後：__#__ assert_match /<td>1&times;<\/td>\s*<td>Programming Ruby 1.9<\/td>/, mail.body.encoded
 
+
 - 統合テストのpay_type(p.176)
   - 修正前：pay_type: "__Check__" }
   - 修正後：pay_type: "__現金__" }
+
 
 - 統合テストのpay_type(p.176)
   - 修正前：assert_equal "__Check__",            order.pay_type
@@ -371,14 +375,17 @@ $ bin/rails server
     - 修正前：# gem 'bcrypt-ruby', '~> 3.1.2'
     - 修正後：gem 'bcrypt-ruby', '~> 3.1.2'
 
+
   - 機能テストのフォルダ名(p.188)
     - 修正前：test/__functional__/sessions_controller_test.rb
     - 修正後：test/__controllers__/sessions_controller_test.rb
+
 
   - ログアウト時のリダイレクト指定(p.186)
     * app/controllers/sessions_controller.rb
     - 修正前：redirect_to __store_url__, notice: "ログアウト"
     - 修正前：redirect_to __root_url__, notice: "ログアウト"
+
 
   - 機能テストでのログアウト時のリダイレクト指定(p.188)
     * test/controllers/sessions_controller_test.rb
