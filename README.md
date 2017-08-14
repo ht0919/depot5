@@ -414,3 +414,8 @@ $ bin/rails server
   - test "should get index"の修正(p.188)
     - 修正前：get __admin_index_url__
     - 修正後：get __admin_url__
+
+
+  - skip_before_filterの修正(p.189-190)
+    - 修正前：skip_before_filter :authorize
+    - 修正後：skip_before_action :authorize
