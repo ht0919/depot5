@@ -42,3 +42,9 @@ Product.create(title: 'Rails Test Prescriptions',
       </p>},
   image_url: 'rtp.jpg',
   price: 34.95)
+
+Users.delete_all
+Users.create(
+  name:            "dave",
+  password_digest: "$2a$10$pshjzU8tXCvsW176.Purn.Njzp8PtlB0kI5dVlL2fS/gOyf0NzgGS"
+)

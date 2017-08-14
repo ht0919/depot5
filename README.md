@@ -419,3 +419,30 @@ $ bin/rails server
   - skip_before_filterの修正(p.189-190)
     - 修正前：skip_before_filter :authorize
     - 修正後：skip_before_action :authorize
+
+
+## Herokuにデプロイの準備
+
+  - Heroku CLIのインストール
+    - macOS  : brew install heroku
+    - Ubuntu : wget -qO- https://cli-assets.heroku.com/install-ubuntu.sh | sh
+  - heroku login
+  - ssh-keygenによる鍵の作成
+  - heroku keys:add
+
+## Herokuにデプロイ
+
+  - プロジェクトのディレクトリに移動
+  - Genfileの末尾に次の3行を追加
+    - group :production do
+    -   gem 'pg', '0.18.4'
+    - end
+  - 次のコマンドを実行
+    - bin/bundle install --without production
+    - git add -A
+    - git commit -m "Update Gemfile.lock for Heroku"
+  - heroku create ※最初に1回のみ
+  - git push heroku master
+  - heroku run rails db:migrate
+  - heroku run rails db:seed
+  - heroku open
