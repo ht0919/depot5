@@ -394,3 +394,23 @@ $ bin/rails server
   - 機能テストのフォルダ名(p.188)
     - 修正前：test/__functional__/sessions_controller_test.rb
     - 修正後：test/__controllers__/sessions_controller_test.rb
+
+
+  - test "should login"の修正(p.188)
+    - 修正前：post __:create__, name: dave.name, password: 'secret'
+    - 修正後：post __login_url__, params: {name: dave.name, password: 'secret'}
+
+
+  - test "should fail login"の修正(p.188)
+    - 修正前：post __:create__, name: dave.name, password: 'wrong'
+    - 修正後：post __login_url__, params: {name: dave.name, password: 'wrong'}
+
+
+  - test "should logout"の修正(p.188)
+    - 修正前：delete __:destroy__
+    - 修正後：delete __logout_url__
+
+
+  - test "should get index"の修正(p.188)
+    - 修正前：get __admin_index_url__
+    - 修正後：get __admin_url__
