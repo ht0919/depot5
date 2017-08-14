@@ -376,10 +376,19 @@ $ bin/rails server
     ```
 
 
-  - 実行前にGemfileの「bcript-ruby」のコメントを解除(p.182)
+  - 実行前にGemfileの「bcript」のコメントを解除(p.182)
     * Gemfile
-    - 修正前：# gem 'bcrypt-ruby', '~> 3.1.2'
-    - 修正後：gem 'bcrypt-ruby', '~> 3.1.2'
+    - 修正前：# gem 'bcrypt', '~> 3.1.7'
+    - 修正後：gem 'bcrypt', '~> 3.1.7'
+
+  - test "should create user"の修正(p.183)
+    - 修正前：post :create, user: @input_attributes
+    - 修正後：
+
+
+  - test "should update user"の修正(p.183)
+    - 修正前：put :update, id: @user.to_param, user: @input_attributes
+    - 修正後：put user_url(@user), params: {id: @user.to_param, user: @input_attributes}
 
 
   - 機能テストのフォルダ名(p.188)
