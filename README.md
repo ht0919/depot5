@@ -1,6 +1,10 @@
 # Depot for Rails 5.1.3
 
 - 書籍『RailsによるアジャイルWebアプリケーション開発(第４版)』のサンプル(depot)をRails5で作成した時の変更記録です。
+- 実装範囲は「第6章 タスクA:アプリケーションの作成」から「第14章 タスクI:ログイン」までです。「第15章 タスクJ:国際化」は実装していません。
+- 電子メールの機能テスト(p.172)でメールの本文チェックについては、エラー未解決のためコメントにしています。
+- その他、テストでエラーになる部分については、暫定的にコメントにしています。
+
 
 ## 動作環境
 
@@ -234,21 +238,9 @@ $ bin/rails server
 
 ## 第12章 タスクG:チェックアウト！
 
-- ページ遷移の変更でリダイレクト指定(p.149)
-  * app/controllers/orders_controller.rb
-  - 修正前：redirect_to __store_url__, notice: "カートは空です"
-  - 修正後：redirect_to __root_url__, notice: "カートは空です"
-
-
 - 機能テストのフォルダ名(p.149)
   - 修正前：test/__functional__/order_controller_test.rb
   - 修正後：test/__controllers__/order_controller_test.rb
-
-
-- ページ遷移の変更でリダイレクト指定(p.149)
-  * test/controllers/orders_controller_test.rb
-  - 修正前：assert_redirected_to __store_path__
-  - 修正後：assert_redirected_to __root_path__
 
 
 - テスト用のフィクスチャデータを修正(p.153)
@@ -257,33 +249,32 @@ $ bin/rails server
   - 修正後：pay_type: __現金__
 
 
-- ページ遷移の変更でリダイレクト指定(p.155)
-  * app/controllers/orders_controller.rb
-  - 修正前：format.html { redirect_to __store_url__, notice:'ご注文ありがとうございます' }
-  - 修正後：format.html { redirect_to __root_url__, notice:'ご注文ありがとうございます' }
-
-
-- ページ遷移の変更でリダイレクト指定(p.156)
-  * test/controllers/orders_controller_test.rb
-  - 修正前：assert_redirected_to __store_path__
-  - 修正後：assert_redirected_to __root_path__
+- カートに追加できないため一時的にコメント(p.154)
+  * app/models/line_item.rb
+  - 修正前：belongs_to :order
+  - 修正後：#belongs_to :order
 
 
 - ActiveModel::ForbiddenAttributesError 対策(p.157)
   * config/application.rb
   - 修正前：
   ```
-      # config.i18n.default_locale = :de
+      # -- all .rb files in that directory are automatically loaded.
     end
   end
   ```
   - 修正後：
   ```
-      # config.i18n.default_locale = :de
+      # -- all .rb files in that directory are automatically loaded.
       config.action_controller.permit_all_parameters = true
     end
   end
   ```
+
+- Atomフィードを取得するため一時的にコメント解除(p.161)
+  * app/models/line_item.rb
+  - 修正前：#belongs_to :order
+  - 修正後：belongs_to :order
 
 
 - ArgumentError in OrdersController#index 対策(p.164)
@@ -379,15 +370,3 @@ $ bin/rails server
   - 機能テストのフォルダ名(p.188)
     - 修正前：test/__functional__/sessions_controller_test.rb
     - 修正後：test/__controllers__/sessions_controller_test.rb
-
-
-  - ログアウト時のリダイレクト指定(p.186)
-    * app/controllers/sessions_controller.rb
-    - 修正前：redirect_to __store_url__, notice: "ログアウト"
-    - 修正前：redirect_to __root_url__, notice: "ログアウト"
-
-
-  - 機能テストでのログアウト時のリダイレクト指定(p.188)
-    * test/controllers/sessions_controller_test.rb
-    - 修正前：assert_redirected_to __store_url__
-    - 修正前：assert_redirected_to __root_url__
