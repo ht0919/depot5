@@ -293,6 +293,21 @@ $ bin/rails server
 
 ## 第13章 タスクH:メールの送信
 
+- 電子メールの設定ファイルのファイル名(p.169)
+  - 修正前：app/mailers/order_notifier.rb
+  - 修正後：app/mailers/order_notifier_mailer.rb
+
+
+- クラス名の修正(p.171)
+  - 修正前：OrderNotifier
+  - 修正後：OrderNotifierMailer
+
+
+- クラス名の修正(p.172)
+  - 修正前：OrderNotifier
+  - 修正後：OrderNotifierMailer
+
+
 - 電子メールの機能テストのフォルダ名(p.172)
   - 修正前：test/__functional__/order_notifier_test.rb
   - 修正後：test/__mailers__/order_notifier_test.rb

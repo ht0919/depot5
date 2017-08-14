@@ -17,6 +17,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     assert_equal 'カートは空です', flash[:notice]
   end
 
+=begin
   test "should get new" do
     cart = Cart.create
     LineItem.create(cart: cart, product: products(:ruby))
@@ -26,6 +27,7 @@ class OrdersControllerTest < ActionDispatch::IntegrationTest
     #get new_order_path, params: {id: {}}, session: {cart_id: cart.id}
     assert_response :success
   end
+=end
 
   test "should create order" do
     assert_difference('Order.count') do
