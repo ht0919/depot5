@@ -435,14 +435,15 @@ $ bin/rails server
   - プロジェクトのディレクトリに移動
   - Genfileの末尾に次の3行を追加
     - group :production do
-    -   gem 'pg', '0.18.4'
+    -   gem 'pg', '0.20.0'
     - end
   - 次のコマンドを実行
     - bin/bundle install --without production
-    - git add -A
+      - git add -A
     - git commit -m "Update Gemfile.lock for Heroku"
   - heroku create ※最初に1回のみ
   - git push heroku master
   - heroku run rails db:migrate
   - heroku run rails db:seed
   - heroku open
+    - https://vast-bastion-32194.herokuapp.com/
