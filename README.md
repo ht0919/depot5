@@ -17,7 +17,7 @@
 ```
 $ git clone https://github.com/ht0919/depot5.git
 $ cd depot5
-$ bin/bundle install
+$ bin/bundle install --without production
 $ bin/rake db:migrate
 $ bin/rake db:migrate RAILS_ENV=test
 $ bin/rake db:seed
@@ -249,10 +249,10 @@ $ bin/rails server
   - 修正後：pay_type: __現金__
 
 
-- カートに追加できないため一時的にコメント(p.154)
+- belongs_toの挙動をRails4と同じにする(p.154)※Rails5で仕様変更
   * app/models/line_item.rb
   - 修正前：belongs_to :order
-  - 修正後：#belongs_to :order
+  - 修正後：belongs_to :order , optional: true
 
 
 - ActiveModel::ForbiddenAttributesError 対策(p.157)
@@ -270,12 +270,6 @@ $ bin/rails server
     end
   end
   ```
-
-- Atomフィードを取得するため一時的にコメント解除(p.161)
-  * app/models/line_item.rb
-  - 修正前：#belongs_to :order
-  - 修正後：belongs_to :order
-
 
 - ArgumentError in OrdersController#index 対策(p.164)
   * app/controllers/orders_controller.rb
@@ -419,6 +413,17 @@ $ bin/rails server
   - skip_before_filterの修正(p.189-190)
     - 修正前：skip_before_filter :authorize
     - 修正後：skip_before_action :authorize
+
+
+  - Adminのアカウント(user:dave/pass:secret)をSeedで自動登録する(p.194)
+    - db/seeds.rbに以下を追加
+    ```
+    User.delete_all
+    User.create(
+      name:            "dave",
+      password_digest: "$2a$10$pshjzU8tXCvsW176.Purn.Njzp8PtlB0kI5dVlL2fS/gOyf0NzgGS"
+    )
+    ```
 
 
 ## Herokuにデプロイの準備
