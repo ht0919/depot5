@@ -287,6 +287,24 @@ $ bin/rails server
 
 ## 第13章 タスクH:メールの送信
 
+- ローカルでのメール設定をテストモードに設定(p.168)
+  * config/environments/development.rbに以下を追加
+  ```
+  Depot5::Application.configure do
+    config.action_mailer.delivery_method = :test
+  end
+  ```
+
+
+- Herokuでのメール設定をテストモードに設定(p.168)
+  * config/environments/production.rbに以下を追加
+  ```
+  Depot5::Application.configure do
+    config.action_mailer.delivery_method = :test
+  end
+  ```
+
+
 - 電子メールの設定ファイルのファイル名(p.169)
   - 修正前：app/mailers/order_notifier.rb
   - 修正後：app/mailers/order_notifier_mailer.rb
@@ -440,11 +458,11 @@ $ bin/rails server
   - プロジェクトのディレクトリに移動
   - Genfileの末尾に次の3行を追加
     - group :production do
-    -   gem 'pg', '0.20.0'
+      - gem 'pg', '0.20.0'
     - end
   - 次のコマンドを実行
     - bin/bundle install --without production
-      - git add -A
+    - git add -A
     - git commit -m "Update Gemfile.lock for Heroku"
   - heroku create ※最初に1回のみ
   - git push heroku master
