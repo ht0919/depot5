@@ -45,6 +45,6 @@ Product.create(title: 'Rails Test Prescriptions',
 
 User.delete_all
 User.create(
-  name:            "dave",
-  password_digest: "$2a$10$pshjzU8tXCvsW176.Purn.Njzp8PtlB0kI5dVlL2fS/gOyf0NzgGS"
+  name:            'dave',
+  password_digest: '$2a$10$pshjzU8tXCvsW176.Purn.Njzp8PtlB0kI5dVlL2fS/gOyf0NzgGS'
 )

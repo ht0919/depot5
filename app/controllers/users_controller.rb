@@ -34,8 +34,9 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to user_url, notice: "ユーザ#{@user.name}を作成しました。" }
-        format.json { render :show, status: :created, location: @user }
+        format.html { redirect_to users_url, notice: "ユーザ#{@user.name}を作成しました。" }
+        #format.json { render :show, status: :created, location: @user }
+        format.json { render json: @user, status: :created, location: @user }
       else
         format.html { render :new }
         format.json { render json: @user.errors, status: :unprocessable_entity }
@@ -49,11 +50,12 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_url, notice: "ユーザ#{@user.name}を更新しました。" }
-        format.json { render :show, status: :ok, location: @user }
+      if @user.update_attributes(params[:user])
+        format.html { redirect_to users_url, notice: "ユーザ#{@user.name}を更新しました。" }
+        #format.json { render :show, status: :ok, location: @user }
+        format.json { head :ok }
       else
-        format.html { render :edit }
+        format.html { render action: "edit" }
         format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
@@ -73,7 +75,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       format.html { redirect_to users_url }
-      format.json { head :no_content }
+      #format.json { head :no_content }
+      format.json { head :ok }
     end
   end
 
