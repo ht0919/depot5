@@ -1,6 +1,8 @@
 require 'test_helper'
 
-class UsersControllerTest < ActionDispatch::IntegrationTest
+#class UsersControllerTest < ActionDispatch::IntegrationTest
+class UsersControllerTest < ActionController::TestCase
+
   setup do
     @input_attributes = {
       name:                   "sam",
@@ -11,49 +13,47 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get index" do
-    get users_url
+    #get users_url
+    get :index
     assert_response :success
+    assert_not_nil assigns(:users)
   end
 
   test "should get new" do
-    get new_user_url
+    #get new_user_url
+    get :new
     assert_response :success
   end
 
-=begin
   test "should create user" do
     assert_difference('User.count') do
-      #post users_url, params: { user: { name: @user.name, password_digest: @user.password_digest } }
-      #post :create, user: @input_attributes
-      post users_url, params: { user: @input_attributes }
+      post :create, params: { user: @input_attributes }
     end
 
-    #assert_redirected_to user_url(User.last)
     assert_redirected_to users_path
   end
-=end
 
   test "should show user" do
-    get user_url(@user)
+    #get user_url(@user)
+    get :show, params: {id: @user}
     assert_response :success
   end
 
   test "should get edit" do
-    get edit_user_url(@user)
+    #get edit_user_url(@user)
+    get :edit, params: {id: @user}
     assert_response :success
   end
 
   test "should update user" do
-    #patch user_url(@user), params: { user: { name: @user.name, password_digest: @user.password_digest } }
-    #put :update, id: @user.to_param, user: @input_attributes
-    put user_url(@user), params: {id: @user.to_param, user: @input_attributes}
-    #assert_redirected_to user_url(@user)
-    assert_redirected_to user_path
-end
+    put :update, params: { id: @user.to_param, user: @input_attributes }
+    assert_redirected_to users_path
+  end
 
   test "should destroy user" do
     assert_difference('User.count', -1) do
-      delete user_url(@user)
+      #delete user_url(@user)
+      delete :destroy, params: {id: @user}
     end
 
     assert_redirected_to users_url
